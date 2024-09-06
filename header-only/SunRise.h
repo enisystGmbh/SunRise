@@ -38,6 +38,7 @@
 // Redistributions of this source code must retain this copyright notice.
 
 #include <math.h>
+#include <cmath>
 
 #define K1 15*(M_PI/180)*1.0027379
 
@@ -152,7 +153,7 @@ class SunRise {
       VHz[0] = s * sin(sp[0].declination) + c * cos(sp[0].declination) * cos(ha[0]) - z;
       VHz[2] = s * sin(sp[2].declination) + c * cos(sp[2].declination) * cos(ha[2]) - z;
 
-      if (signbit(VHz[0]) == signbit(VHz[2]))
+      if (std::signbit(VHz[0]) == std::signbit(VHz[2]))
         goto noevent;			    // No event this hour.
         
       VHz[1] = s * sin(sp[1].declination) + c * cos(sp[1].declination) * cos(ha[1]) - z;
@@ -229,7 +230,7 @@ class SunRise {
     noevent:
       // There are obscure cases in the polar regions that require extra logic.
       if (!hasRise && !hasSet)
-        isVisible = !signbit(VHz[2]);
+        isVisible = !std::signbit(VHz[2]);
       else if (hasRise && !hasSet)
         isVisible = (queryTime > riseTime);
       else if (!hasRise && hasSet)
