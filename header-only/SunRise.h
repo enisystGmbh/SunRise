@@ -47,22 +47,6 @@ struct skyCoordinates {
   double declination;	    // Declination
 };
 
-#if __ISO_C_VISIBLE < 1999
-// Arduino compiler is missing this function as of 6/2020.
-//
-// The Arduino ATmega platforms (including the Uno) are also missing rint().
-// This can be worked around by inserting "#define rint(x) (double)lrint(x)" here,
-// but since these platforms use only four bytes for double precision - which is
-// insufficient for the correct performance of the required calculations - you
-// should instead upgrade to an Arduino Due or better.
-//
-#define remainder(x, y) ((double)((double)x - (double)y * rint((double)x / (double)y)))
-
-// double remainder(double x, double y) {
-//   return(x - (y * rint(x / y)));
-// }
-#endif
-
 class SunRise {
   public:
     time_t queryTime;
